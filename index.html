@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login - Recruitment Agent</title>
 
     <style>
@@ -10,7 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         body {
@@ -18,30 +19,44 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #8b0000, #ff0000);
         }
 
         .login-container {
             width: 400px;
-            background: white;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
 
         .logo {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .logo .icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: #d60000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
         }
 
         .logo h1 {
-            color: #667eea;
+            color: #b30000;
             font-size: 28px;
+            margin-bottom: 8px;
         }
 
         .logo p {
             color: #777;
-            margin-top: 8px;
             font-size: 14px;
         }
 
@@ -52,28 +67,30 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
             color: #333;
+            font-weight: 600;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 13px 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 15px;
             outline: none;
+            transition: 0.3s;
         }
 
         .form-group input:focus {
-            border-color: #667eea;
+            border-color: #d60000;
+            box-shadow: 0 0 0 3px rgba(214, 0, 0, 0.1);
         }
 
-        .remember-forgot {
+        .options {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             font-size: 14px;
         }
 
@@ -81,23 +98,28 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            color: #555;
         }
 
-        .forgot-password {
-            color: #667eea;
+        .remember input {
+            accent-color: #d60000;
+        }
+
+        .forgot {
+            color: #d60000;
             text-decoration: none;
         }
 
-        .forgot-password:hover {
+        .forgot:hover {
             text-decoration: underline;
         }
 
         .login-btn {
             width: 100%;
-            padding: 13px;
+            padding: 14px;
             border: none;
             border-radius: 8px;
-            background: #667eea;
+            background: linear-gradient(90deg, #b30000, #ed0000);
             color: white;
             font-size: 16px;
             font-weight: bold;
@@ -106,7 +128,8 @@
         }
 
         .login-btn:hover {
-            background: #5568d8;
+            background: linear-gradient(90deg, #8b0000, #c00000);
+            transform: translateY(-1px);
         }
 
         .register {
@@ -117,9 +140,9 @@
         }
 
         .register a {
-            color: #667eea;
-            text-decoration: none;
+            color: #d60000;
             font-weight: bold;
+            text-decoration: none;
         }
 
         .register a:hover {
@@ -127,14 +150,14 @@
         }
 
         .error-message {
-            color: #d9534f;
-            background: #fcebea;
+            display: none;
             padding: 10px;
-            border-radius: 6px;
             margin-bottom: 15px;
+            border-radius: 7px;
+            background: #ffe5e5;
+            color: #b30000;
             text-align: center;
             font-size: 14px;
-            display: none;
         }
     </style>
 </head>
@@ -144,8 +167,15 @@
     <div class="login-container">
 
         <div class="logo">
+
+            <div class="icon">
+                RA
+            </div>
+
             <h1>Recruitment Agent</h1>
+
             <p>AI-Powered Recruitment System</p>
+
         </div>
 
         <div class="error-message" id="errorMessage">
@@ -155,7 +185,9 @@
         <form id="loginForm">
 
             <div class="form-group">
+
                 <label for="email">Email</label>
+
                 <input
                     type="email"
                     id="email"
@@ -163,10 +195,13 @@
                     placeholder="Enter your email"
                     required
                 >
+
             </div>
 
             <div class="form-group">
+
                 <label for="password">Password</label>
+
                 <input
                     type="password"
                     id="password"
@@ -174,21 +209,24 @@
                     placeholder="Enter your password"
                     required
                 >
+
             </div>
 
-            <div class="remember-forgot">
+            <div class="options">
+
                 <label class="remember">
-                    <input type="checkbox" id="remember">
+                    <input type="checkbox">
                     Remember me
                 </label>
 
-                <a href="#" class="forgot-password">
+                <a href="#" class="forgot">
                     Forgot Password?
                 </a>
+
             </div>
 
             <button type="submit" class="login-btn">
-                Login
+                LOGIN
             </button>
 
         </form>
@@ -201,41 +239,60 @@
     </div>
 
     <script>
-        document.getElementById("loginForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", async function(event) {
 
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const errorMessage = document.getElementById("errorMessage");
+                event.preventDefault();
 
-            try {
-                const response = await fetch("/api/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password
-                    })
-                });
+                const email =
+                    document.getElementById("email").value;
 
-                const data = await response.json();
+                const password =
+                    document.getElementById("password").value;
 
-                if (response.ok) {
-                    window.location.href = "/dashboard";
-                } else {
+                const errorMessage =
+                    document.getElementById("errorMessage");
+
+                try {
+
+                    const response = await fetch("/api/login", {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+
+                        window.location.href = "/dashboard";
+
+                    } else {
+
+                        errorMessage.textContent =
+                            data.detail ||
+                            "Invalid email or password.";
+
+                        errorMessage.style.display = "block";
+                    }
+
+                } catch (error) {
+
                     errorMessage.textContent =
-                        data.detail || "Invalid email or password.";
+                        "Unable to connect to the server.";
+
                     errorMessage.style.display = "block";
                 }
 
-            } catch (error) {
-                errorMessage.textContent =
-                    "Unable to connect to the server.";
-                errorMessage.style.display = "block";
-            }
-        });
+            });
     </script>
 
 </body>
